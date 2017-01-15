@@ -178,6 +178,115 @@ def findMovesL1():
 
             # dont forget special case - up1 down1 up1
 
+############# OUTER SQUARE #############
+            #  first row middle four
+            if (y == 0 and 1 < x < 6):
+                farRight = board[y][x + 2]
+                farLeft = board[y][x - 2]
+                farDown = board[y + 2][x]
+                if (g == farDown):
+                    if (g == board[y + 1][x + 1]):
+                        print ("Match! move " + str(y + 1) + " " + str(x) + " right FARDOWN")
+                        moveRight(y + 1, x)
+                        skip.extend((str(y) + str(x), str(y + 1) + str(x + 1), str(y + 1) + str(x), str(y + 2) + str(x)))
+                        moves += 1
+                    elif (g == board[y + 1][x - 1]):
+                        print ("Match! move " + str(y + 1) + " " + str(x) + " left FARDOWN")
+                        moveLeft(y + 1, x)
+                        skip.extend((str(y) + str(x), str(y + 1) + str(x - 1), str(y + 1) + str(x), str(y + 2) + str(x)))
+                        moves += 1
+                if (g == farRight and g == board[y + 1][x + 1]):
+                    print ("Match! move " + str(y) + " " + str(x + 1) + " down FARRIGHT")
+                    moveDown(y, x + 1)
+                    skip.extend((str(y) + str(x), str(y + 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                    moves += 1
+                if (g == farLeft and g == board[y + 1][x - 1]):
+                    print ("Match! move " + str(y) + " " + str(x - 1) + " down FARLEFT")
+                    moveDown(y, x - 1)
+                    skip.extend((str(y) + str(x), str(y + 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                    moves += 1
+
+            #  last row middle four
+            elif (y == 7 and 1 < x < 6):
+                farRight = board[y][x + 2]
+                farLeft = board[y][x - 2]
+                farUp = board[y - 2][x]
+                if (g == farUp):
+                    if (g == board[y - 1][x + 1]):
+                        print ("Match! move " + str(y - 1) + " " + str(x) + " right FARUP")
+                        moveRight(y - 1, x)
+                        skip.extend((str(y) + str(x), str(y - 1) + str(x + 1), str(y - 1) + str(x), str(y - 2) + str(x)))
+                        moves += 1
+                    elif (g == board[y - 1][x - 1]):
+                        print ("Match! move " + str(y - 1) + " " + str(x) + " left FARUP")
+                        moveLeft(y - 1, x)
+                        skip.extend((str(y) + str(x), str(y - 1) + str(x - 1), str(y - 1) + str(x), str(y - 2) + str(x)))
+                        moves += 1
+                if (g == farRight and g == board[y - 1][x + 1]):
+                    print ("Match! move " + str(y) + " " + str(x + 1) + " up FARRIGHT")
+                    moveUp(y, x + 1)
+                    skip.extend((str(y) + str(x), str(y - 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                    moves += 1
+                if (g == farLeft and g == board[y - 1][x - 1]):
+                    print ("Match! move " + str(y) + " " + str(x - 1) + " up FARLEFT")
+                    moveUp(y, x - 1)
+                    skip.extend((str(y) + str(x), str(y - 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                    moves += 1
+
+            #  first col middle four
+            elif (x == 0 and 1 < y < 6):
+                farRight = board[y][x + 2]
+                farUp = board[y - 2][x]
+                farDown = board[y + 2][x]
+                if (g == farUp and g == board[y - 1][x + 1]):
+                    print ("Match! move " + str(y - 1) + " " + str(x) + " right FARUP")
+                    moveRight(y - 1, x)
+                    skip.extend((str(y) + str(x), str(y - 1) + str(x + 1), str(y - 1) + str(x), str(y - 2) + str(x)))
+                    moves += 1
+                if (g == farDown and g == board[y + 1][x + 1]):
+                    print ("Match! move " + str(y + 1) + " " + str(x) + " right FARDOWN")
+                    moveRight(y + 1, x)
+                    skip.extend((str(y) + str(x), str(y + 1) + str(x + 1), str(y + 1) + str(x), str(y + 2) + str(x)))
+                    moves += 1
+                if (g == farRight):
+                    if (g == board[y - 1][x + 1]):
+                        print ("Match! move " + str(y) + " " + str(x + 1) + " up FARRIGHT")
+                        moveUp(y, x + 1)
+                        skip.extend((str(y) + str(x), str(y - 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                        moves += 1
+                    elif (g == board[y + 1][x + 1]):
+                        print ("Match! move " + str(y) + " " + str(x + 1) + " down FARRIGHT")
+                        moveDown(y, x + 1)
+                        skip.extend((str(y) + str(x), str(y + 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                        moves += 1
+
+            #  last col middle four
+            elif (x == 7 and 1 < y < 6):
+                farLeft = board[y][x - 2]
+                farUp = board[y - 2][x]
+                farDown = board[y + 2][x]
+                if (g == farUp and g == board[y - 1][x - 1]):
+                    print ("Match! move " + str(y - 1) + " " + str(x) + " left FARUP")
+                    moveLeft(y - 1, x)
+                    skip.extend((str(y) + str(x), str(y - 1) + str(x - 1), str(y - 1) + str(x), str(y - 2) + str(x)))
+                    moves += 1
+                if (g == farDown and g == board[y + 1][x - 1]):
+                    print ("Match! move " + str(y + 1) + " " + str(x) + " left FARDOWN")
+                    moveLeft(y + 1, x)
+                    skip.extend((str(y) + str(x), str(y + 1) + str(x - 1), str(y + 1) + str(x), str(y + 2) + str(x)))
+                    moves += 1
+                if (g == farLeft):
+                    if (g == board[y - 1][x - 1]):
+                        print ("Match! move " + str(y) + " " + str(x - 1) + " up FARLEFT")
+                        moveUp(y, x - 1)
+                        skip.extend((str(y) + str(x), str(y - 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                        moves += 1
+                    elif (g == board[y + 1][x - 1]):
+                        print ("Match! move " + str(y) + " " + str(x - 1) + " down FARLEFT")
+                        moveDown(y, x - 1)
+                        skip.extend((str(y) + str(x), str(y + 1) + str(x + 1), str(y) + str(x + 1), str(y) + str(x + 2)))
+                        moves += 1
+
 ############# INNER MIDDLE SQUARES #############
             #  second row middle four
             if (y == 1 and 1 < x < 6):
@@ -575,7 +684,7 @@ def main():
 
     global moves
     start = time.time()
-    while(time.time() - start < 62.5):
+    while(time.time() - start < 70):
         colorGrab_Pillow()
         for moveIndex in range(len(MoveY1)):
             autopy.mouse.move(MoveX1[moveIndex], MoveY1[moveIndex])
